@@ -24,6 +24,8 @@ import com.joanju.proparse.Environment;
 
 /**
  * This "Singleton" class provides an interface to an org.prorefactor.refactor session.
+ * Much of this class was originally put in place for use of Proparse within
+ * an Eclipse environment, with references to multiple projects within Eclipse.
  */
 public class RefactorSession {
 
@@ -205,7 +207,9 @@ public class RefactorSession {
 	}
 
 
-	/** Only loads the project's settings if it's not already the current project */
+	/** Only loads the project's settings if it's not already the current project.
+	 * Uses relative path for prorefactor/projects/_projectname_.
+	 */
 	public void loadProject(String nameToLoad) throws Exception {
 		if (nameToLoad==null || nameToLoad.length()==0)
 			throw new Exception("No project selected");
@@ -242,6 +246,23 @@ public class RefactorSession {
 	public void loadProjectForFile(File file) throws Exception {
 		String s = getIDE().getProjectRelativePath(file)[0];
 		loadProject(s);
+	}
+	
+	
+	/** Read progress and prorefactor properties, and schema, from a fully qualified path.
+	 * RefactorSession was originally designed for reading project
+	 * settings from a relative prorefactor/projects directory, for multiple projects
+	 * in one Eclipse session.
+	 * This method is different - it is for reading progress.properties and
+	 * prorefactor.properties from a fully qualified directory name.
+	 * It is expected that the schema file name will be specified in proparse.properties. 
+	 */
+	public void loadProjectPropertiesFromDirectory(String fullyQualifiedDirName) throws Exception {
+		progressSettings = new ProgressProjectSettings(fullyQualifiedDirName + "/progress.properties");
+		progressSettings.loadSettings();
+		proparseSettings = new ProparseProjectSettings(fullyQualifiedDirName + "/proparse.properties", "");
+		proparseSettings.loadSettings();
+		configureProparse();
 	}
 
 

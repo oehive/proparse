@@ -811,19 +811,16 @@ exprt2
 		// point in expression evaluation, if we have anything followed by a left-paren,
 		// we're going to assume it's a method call.
 		// Method names which are reserved keywords must be prefixed with THIS-OBJECT:.
-		(identifier LEFTPAREN)=>
+		({support.isClass()}? identifier LEFTPAREN)=>
 			methodname:identifier!
 			{	#methodname.setType(LOCAL_METHOD_REF);
 				astFactory.makeASTRoot(currentAST, #methodname);
 			}
 			parameterlist_noroot
-	|	constant
-	|	(noargfunc)=> noargfunc
-	|	// PSC lists <syshandle> as an entry in <function>. In <primary>, 
-		// <function> comes before <field>.
-		{true}? systemhandlename
-	|	// Field before record.
-		(field)=> field
+	|	{true}? constant
+	|	{true}? noargfunc
+	|	{true}? systemhandlename
+	|	field
 		(options{greedy=true;}: ((NOT)? ENTERED)=> (NOT)? e:ENTERED)?
 		{if (e!=null) ## = #([Entered_func], ##);}
 	;

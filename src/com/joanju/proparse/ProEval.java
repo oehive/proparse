@@ -1,4 +1,4 @@
-// $ANTLR 2.7.7 (20060930): "proeval.g" -> "ProEval.java"$
+// $ANTLR 2.7.7 (20060906): "proeval.g" -> "ProEval.java"$
 
 package com.joanju.proparse;
 import static com.joanju.proparse.ProEvalSupport.*;
@@ -4011,6 +4011,20 @@ public ProEval() {
 		"THROW",
 		"TOPNAVQUERY",
 		"UNBOX",
+		"BOX",
+		"DBREMOTEHOST",
+		"DYNAMICCAST",
+		"XMLNODENAME",
+		"ABSTRACT",
+		"DELEGATE",
+		"DYNAMICINVOKE",
+		"DYNAMICNEW",
+		"EVENT",
+		"SERIALIZEHIDDEN",
+		"SERIALIZENAME",
+		"SIGNATURE",
+		"STOPAFTER",
+		"Assign_dynamic_new",
 		"Last_Token_Number"
 	};
 	
