@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import junit.framework.TestCase;
@@ -28,14 +29,22 @@ import org.prorefactor.treeparserbase.JPTreeParser;
 
 /** Reads settings from ./parseany.properties.
  * Ex:<pre>
+ * # Use only unix style forward slashes '/' in the properties file.
  * projectPropsDir = /work/myproject/proparsesettings
  * topParseDir = /work/myproject
  * extensions = p w cls
  * </pre>
+ * <p>
+ * An optional property is "parseListFile", which would
+ * be the fully qualified name of a file which contains
+ * a list of fully qualified names of files to parse.
+ * If parseListFile is used, then topParseDir and extensions are ignored.
+ * </p>
  */
 public class ParseAny extends TestCase {
 	
 	File topDir;
+	File parseListFile;
 	String [] extensions;
 
 	@Override
@@ -56,29 +65,56 @@ public class ParseAny extends TestCase {
 			throw new Exception("projectPropsDir must be defined");
 		RefactorSession.getInstance().loadProjectPropertiesFromDirectory(projectPropsDirName);
 		
-		String extensionsProp = props.getProperty("extensions");
-		if (StringUtils.isEmpty(extensionsProp))
-			throw new Exception("extensions must be defined");
-		extensions = StringUtils.split(extensionsProp);
+		String listFileProp = props.getProperty("parseListFile");
+		if (! StringUtils.isEmpty(listFileProp)) {
+			parseListFile = new File(listFileProp);
+			if (! (parseListFile.exists()))
+				throw new Exception(listFileProp + " does not exist");
+		} else {
+			String extensionsProp = props.getProperty("extensions");
+			if (StringUtils.isEmpty(extensionsProp))
+				throw new Exception("extensions must be defined");
+			extensions = StringUtils.split(extensionsProp);
 
-		String topDirProp = props.getProperty("topParseDir");
-		if (StringUtils.isEmpty(topDirProp))
-			throw new Exception("topParseDir must be defined");
-		topDir = new File(topDirProp);
-		if (! (topDir.exists() && topDir.isDirectory()))
-			throw new Exception(topDirProp + " is not a directory");
-
+			String topDirProp = props.getProperty("topParseDir");
+			if (StringUtils.isEmpty(topDirProp))
+				throw new Exception("topParseDir must be defined");
+			topDir = new File(topDirProp);
+			if (! (topDir.exists() && topDir.isDirectory()))
+				throw new Exception(topDirProp + " is not a directory");
+		}
 	}
-
-	public void test01() throws Exception {
+	
+	private void parseOne(File file) throws Exception {
+		System.out.println(file.getPath());
+		ParseUnit pu = new ParseUnit(file);
+		pu.treeParser(new JPTreeParser());
+		pu.treeParser01();
+	}
+	
+	private void parseFromTopDir() throws Exception {
 		Collection files = FileUtils.listFiles(topDir, extensions, true);
 		for (Iterator it = files.iterator(); it.hasNext();) {
 			File file = (File) it.next();
-			System.out.println(file.getPath());
-			ParseUnit pu = new ParseUnit(file);
-			pu.treeParser(new JPTreeParser());
-			pu.treeParser01();
+			parseOne(file);
 		}
+	}
+	
+	private void parseFromList() throws Exception {
+		List lines = FileUtils.readLines(parseListFile);
+		for (Object obj : lines) {
+			String line = ((String)obj).trim();
+			if (StringUtils.isEmpty(line))
+				continue;
+			parseOne(new File(line));
+		}
+	}
+
+	public void test01() throws Exception {
+		if (parseListFile != null)
+			parseFromList();
+		else
+			parseFromTopDir();
 		System.out.println("ParseAny completed OK");
 	}
 

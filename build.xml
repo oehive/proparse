@@ -52,20 +52,16 @@
 	<target name="makeproparsezip">
 		<delete dir="prorefactor/projects/unittest/pubs" />
 		<zip destfile="proparse.java.zip">
-			<zipfileset dir="resources.example" prefix="proparse.java/resources.example" />
-			<zipfileset dir="prorefactor/projects/unittest" prefix="proparse.java/prorefactor/projects/unittest" />
-			<zipfileset dir="prorefactor/configdump" prefix="proparse.java/prorefactor/configdump" />
-			<zipfileset dir="data" prefix="proparse.java/data" />
-			<zipfileset file="prorefactor/configure.p" prefix="proparse.java/prorefactor" />
 			<zipfileset dir="lib" prefix="proparse.java/lib" />
 			<zipfileset file="proparse.jar" prefix="proparse.java" />
+			<zipfileset file="build.number" prefix="proparse.java" />
 		</zip>
 	</target>	
 
 
 	<target name="make_dotnet">
 		<exec executable="ikvmbin/ikvmc" dir="." failonerror="true">
-			<arg line="-out:proparse.net.dll -version:4.0.1.0 -keyfile:proparse.snk proparse.jar lib\*.jar"/>
+			<arg line="-out:proparse.net.dll -version:4.0.1.${build.number} -keyfile:proparse.snk proparse.jar lib\*.jar"/>
 		</exec>
 		<delete dir="prorefactor/projects/unittest/pubs" />
 		<zip destfile="proparse.assemblies.zip">
