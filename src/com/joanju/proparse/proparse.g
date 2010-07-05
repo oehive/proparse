@@ -1388,7 +1388,8 @@ class_type_name
 	;
 
 classstate
-	:	c:CLASS^ type_name2 (class_inherits)? (class_implements)? (USEWIDGETPOOL)? (ABSTRACT|FINAL)?
+	:	c:CLASS^ type_name2
+		(class_inherits | class_implements | USEWIDGETPOOL | ABSTRACT | FINAL)*
 		{	// Header parsing done, call defClass which adds the name and processes inheritance.
 			support.defClass(#c);
 			// Now scan ahead through the entire token stream (!) for method names.

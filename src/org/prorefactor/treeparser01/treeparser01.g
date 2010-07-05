@@ -445,10 +445,12 @@ choosestate
 classstate
 	:	#(	c:CLASS {action.classState(#c);}
 			TYPE_NAME
-			( #(INHERITS TYPE_NAME) )?
-			( #(IMPLEMENTS TYPE_NAME (COMMA TYPE_NAME)* ) )?
-			( USEWIDGETPOOL )?
-			( ABSTRACT | FINAL )?
+			(	#(INHERITS TYPE_NAME)
+			|	#(IMPLEMENTS TYPE_NAME (COMMA TYPE_NAME)* )
+			|	USEWIDGETPOOL
+			|	ABSTRACT
+			|	FINAL
+			)*
 			block_colon
 			code_block
 			#(END (CLASS)? )
@@ -836,14 +838,14 @@ defineparam_var
 		(	options{greedy=true;}
 		:	casesens_or_not | #(FORMAT expression) | #(DECIMALS expression )
 		|	#(li:LIKE fld[CQ.SYMBOL] (VALIDATE)? {action.defLike(#li);} )
-		|	initial_constant | label_constant | NOUNDO | extentphrase
+		|	initial_constant | label_constant | NOUNDO | extentphrase_def_symbol
 		)*
 	;
 
 definepropertystate
 	:	#(	def:DEFINE def_modifiers PROPERTY
 			id:ID {push(action.defineVariable(#def, #id));}
-			as:AS datatype {action.defAs(#as);} (extentphrase)? (initial_constant|NOUNDO)*
+			as:AS datatype {action.defAs(#as);} (extentphrase_def_symbol)? (initial_constant|NOUNDO)*
 			{action.addToSymbolScope(pop());}
 			defineproperty_accessor (defineproperty_accessor)?
 		)
@@ -1051,6 +1053,9 @@ exportstate
 	;
 
 extentphrase
+	:	#(ex:EXTENT (expression)?)
+	;
+extentphrase_def_symbol
 	:	#(ex:EXTENT (expression)? {action.defExtent(#ex);} )
 	;
 
@@ -1067,7 +1072,7 @@ fieldoption
 	|	#(CONTEXTHELPID expression)
 	|	#(DECIMALS expression )
 	|	DROPTARGET
-	|	extentphrase
+	|	extentphrase_def_symbol
 	|	#(FONT expression)
 	|	#(FORMAT expression)
 	|	#(HELP constant)
@@ -1306,7 +1311,7 @@ function_param_arg
 			}
 		)?
 		{if (#id==null) action.paramNoName(_t);}
-		(CLASS TYPE_NAME | datatype_var) (extentphrase)?
+		(CLASS TYPE_NAME | datatype_var) (extentphrase_def_symbol)?
 	;
 
 getkeyvaluestate

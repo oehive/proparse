@@ -975,10 +975,12 @@ choosestate
 
 classstate
 	:	#(	CLASS TYPE_NAME
-			( #(INHERITS TYPE_NAME) )?
-			( #(IMPLEMENTS TYPE_NAME (COMMA TYPE_NAME)* ) )?
-			( USEWIDGETPOOL )?
-			( ABSTRACT | FINAL )?
+			(	#(INHERITS TYPE_NAME)
+			|	#(IMPLEMENTS TYPE_NAME (COMMA TYPE_NAME)* )
+			|	USEWIDGETPOOL
+			|	ABSTRACT
+			|	FINAL
+			)*
 			block_colon
 			code_block
 			#(END (CLASS)? )
@@ -2112,7 +2114,7 @@ messagestate
 
 methodstate
 	:	#(	METHOD def_modifiers
-			(VOID | datatype (extentphrase)?)
+			(VOID | datatype (options{greedy=true;}:extentphrase)?)
 			.  // Method name might be a reserved keyword.
 			function_params
 			(	// Ambiguous on PERIOD, since a block_colon may be a period, and we may also
