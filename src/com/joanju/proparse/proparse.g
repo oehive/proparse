@@ -134,6 +134,10 @@ blockorstate
 		|	(widattr EQUAL)=> assignstate4
 		|	(field EQUAL DYNAMICNEW)=> dynamicnewstate
 		|	(field EQUAL)=> assignstate2
+		|	// Anything followed by an OBJCOLON is going to be an expression statement.
+			// We have to disambiguate, for example, THIS-OBJECT:whatever from the THIS-OBJECT statement.
+			// (I don't know why the lookahead didn't take care of that.)
+			(. OBJCOLON)=> expression_statement
 		|	// Any possible identifier followed by a parameterlist is assumed to be a function or method call.
 			// Method names that are reserved keywords must be prefixed with an object reference or THIS-OBJECT,
 			// so we don't have to worry about reserved keyword method names here.
@@ -1606,7 +1610,7 @@ constructorstate
 		constructor_end state_end
 		{sthd(##,0);}
 	;
-constructor_end: END^ (CONSTRUCTOR)? ;
+constructor_end: END^ (CONSTRUCTOR|METHOD)? ;
 
 contexthelpid_expr
 	:	CONTEXTHELPID^ expression
@@ -2305,7 +2309,7 @@ destructorstate
 		destructor_end state_end
 		{sthd(##,0);}
 	;
-destructor_end: END^ (DESTRUCTOR)? ;
+destructor_end: END^ (DESTRUCTOR|METHOD)? ;
 
 dictionarystate
 	:	DICTIONARY^ state_end
@@ -2459,7 +2463,7 @@ exportstate
 	;
 
 extentphrase
-	:	EXTENT^ (options{greedy=true;}: expression)?
+	:	EXTENT^ (options{greedy=true;}: constant)?
 	;
 
 field_form_item

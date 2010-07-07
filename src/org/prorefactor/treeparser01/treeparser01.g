@@ -511,7 +511,7 @@ constructorstate
 	:	#(	c:CONSTRUCTOR
 			{action.structorBegin(#c);}
 			def_modifiers TYPE_NAME function_params
-			block_colon code_block #(END (CONSTRUCTOR)? ) state_end
+			block_colon code_block #(END (CONSTRUCTOR|METHOD)? ) state_end
 			{action.structorEnd(#c);}
 		)
 	;
@@ -957,7 +957,7 @@ destructorstate
 	:	#(	d:DESTRUCTOR 
 			{action.structorBegin(#d);}
 			(PUBLIC)? TYPE_NAME LEFTPAREN RIGHTPAREN block_colon
-			code_block #(END (DESTRUCTOR)? ) state_end
+			code_block #(END (DESTRUCTOR|METHOD)? ) state_end
 			{action.structorEnd(#d);}
 		)
 	;
@@ -1013,7 +1013,7 @@ dynamicnewstate
 	:	#(	Assign_dynamic_new
 			#(	EQUAL
 				fld[CQ.UPDATING]
-				#(DYNAMICNEW expression parameterlist)
+				#(dn:DYNAMICNEW expression {action.callBegin(#dn);} parameterlist {action.callEnd();})
 			)
 			(NOERROR_KW)?
 			state_end

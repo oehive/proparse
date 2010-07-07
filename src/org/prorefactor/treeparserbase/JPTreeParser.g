@@ -1116,7 +1116,7 @@ connectstate
 	
 constructorstate
 	:	#(	CONSTRUCTOR def_modifiers TYPE_NAME function_params
-			block_colon code_block #(END (CONSTRUCTOR)? ) state_end
+			block_colon code_block #(END (CONSTRUCTOR|METHOD)? ) state_end
 		)
 	;
 	
@@ -1649,7 +1649,7 @@ deletewidgetpoolstate
 	
 destructorstate
 	:	#(	DESTRUCTOR (PUBLIC)? TYPE_NAME LEFTPAREN RIGHTPAREN block_colon
-			code_block #(END (DESTRUCTOR)? ) state_end
+			code_block #(END (DESTRUCTOR|METHOD)? ) state_end
 		)
 	;
 	
