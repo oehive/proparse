@@ -289,7 +289,7 @@ public class TP01Support extends TP01Action {
 		if (typeNode.getType()==TokenTypes.CLASS) typeNode = typeNode.nextNode();
 		if (typeNode.getType()==TokenTypes.TYPE_NAME) {
 			primative.setDataType(DataType.getDataType(TokenTypes.CLASS));
-			primative.setClassName(typeNode.getText());
+			primative.setClassName(typeNode);
 		} else {
 			primative.setDataType(DataType.getDataType(typeNode.getType()));
 		}
@@ -843,7 +843,7 @@ if (result==null) return;
 		if (typeNode.getType()==TokenTypes.CLASS) typeNode = typeNode.nextNode();
 		if (typeNode.getType()==TokenTypes.TYPE_NAME) {
 			variable.setDataType(DataType.getDataType(TokenTypes.CLASS));
-			variable.setClassName(typeNode.getText());
+			variable.setClassName(typeNode);
 		} else {
 			variable.setDataType(DataType.getDataType(typeNode.getType()));
 		}

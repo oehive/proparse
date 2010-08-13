@@ -13,6 +13,7 @@
 
 package org.prorefactor.treeparser;
 
+import org.prorefactor.core.JPNode;
 import org.prorefactor.core.TokenTypes;
 import org.prorefactor.core.schema.Field;
 import org.prorefactor.core.schema.Schema;
@@ -147,7 +148,12 @@ public class FieldBuffer extends Symbol implements Primative {
 	
 	/** Sets the underlying Field's className. */
 	public Primative setClassName(String className) { field.setClassName(className); return this; }
-	
+	/** Sets the underlying Field's className. */
+	public Primative setClassName(JPNode typeNameNode) {
+		field.setClassName(typeNameNode);
+		return this;
+	}
+
 	
 	/** Sets the underlying Field's dataType. */
 	public Primative setDataType(DataType dataType) { field.setDataType(dataType); return this; }

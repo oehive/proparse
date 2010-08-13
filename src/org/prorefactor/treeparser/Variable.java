@@ -10,10 +10,12 @@
 
 package org.prorefactor.treeparser;
 
-import org.prorefactor.core.TokenTypes;
-import com.joanju.DataXferStream;
-
 import java.io.IOException;
+
+import org.prorefactor.core.JPNode;
+import org.prorefactor.core.TokenTypes;
+
+import com.joanju.DataXferStream;
 
 
 /**
@@ -75,6 +77,10 @@ public class Variable extends Symbol implements Primative, Value {
 	public int getProgressType() { return TokenTypes.VARIABLE; }
 
 	public Primative setClassName(String s) { this.className = s; return this; }
+	public Primative setClassName(JPNode typeNameNode) {
+		this.className = ClassSupport.qualifiedClassName(typeNameNode);
+		return this;
+	}
 
 	public Primative setDataType(DataType dataType) { this.dataType = dataType; return this; }
 	

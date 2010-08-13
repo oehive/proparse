@@ -16,6 +16,8 @@ package org.prorefactor.core.schema;
 import java.util.Comparator;
 import java.io.IOException;
 
+import org.prorefactor.core.JPNode;
+import org.prorefactor.treeparser.ClassSupport;
 import org.prorefactor.treeparser.DataType;
 import org.prorefactor.treeparser.Primative;
 import com.joanju.Xferable;
@@ -132,6 +134,10 @@ public class Field implements Primative, Xferable {
 	public String getName() { return name; }
 	public Table getTable() { return table; }
 	public Primative setClassName(String s) { this.className = s; return this; }
+	public Primative setClassName(JPNode typeNameNode) {
+		this.className = ClassSupport.qualifiedClassName(typeNameNode);
+		return this;
+	}
 	public Primative setDataType(DataType dataType) { this.dataType = dataType; return this; }
 	public Primative setExtent(int extent) {this.extent = extent; return this; }
 	
