@@ -2133,9 +2133,9 @@ definepropertystate
 	;
 defineproperty_accessor
 	:	(PUBLIC|PROTECTED|PRIVATE)?
-		(	GET PERIOD {## = #([Property_getter], ##);}
+		(	(GET PERIOD)=> GET PERIOD {## = #([Property_getter], ##);}
 		|	SET PERIOD {## = #([Property_setter], ##);}
-		|	GET function_params block_colon code_block END (GET)? PERIOD
+		|	GET (function_params)? block_colon code_block END (GET)? PERIOD
 			 {## = #([Property_getter], ##);}
 		|	SET function_params block_colon code_block END (SET)? PERIOD
 			 {## = #([Property_setter], ##);}

@@ -1533,8 +1533,8 @@ definepropertystate
 	;
 defineproperty_accessor
 	:	#(	Property_getter def_modifiers GET
-			(	PERIOD
-			|	function_params block_colon code_block END (GET)? PERIOD
+			(	(PERIOD)=> PERIOD
+			|	(function_params)? block_colon code_block END (GET)? PERIOD
 			)
 		)
 	|	#(	Property_setter def_modifiers SET
