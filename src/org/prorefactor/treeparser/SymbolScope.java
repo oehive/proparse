@@ -2,7 +2,7 @@
  * @author John Green
  * 6-Nov-2002
  * 
- * Copyright (c) 2002-2007 Joanju Software.
+ * Copyright (c) 2002-2010 Joanju Software.
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ package org.prorefactor.treeparser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -293,6 +294,11 @@ public class SymbolScope implements Xferable {
 		}
 		return rootScope.defineBuffer("", table);
 	}
+	
+	
+
+	/** Get the Variables. (vars, params, etc, etc.) */
+	public Collection<Variable> getVariables() { return variableMap.values(); }
 
 	
 	
