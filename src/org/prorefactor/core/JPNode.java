@@ -439,6 +439,13 @@ public class JPNode extends BaseAST implements IJPNode, Xferable {
 		}
 		return ret;
 	}
+    /** This variant is primarily for ease of use from ABL. */
+	public JPNode [] getDirectChildrenArray() {
+		ArrayList<JPNode> list = getDirectChildren();
+		JPNode [] ret = new JPNode[list.size()];
+		list.toArray(ret);
+		return ret;
+	}
 
 
 	/** Get the FieldContainer (Frame or Browse) for a statement head node or a frame field reference.
