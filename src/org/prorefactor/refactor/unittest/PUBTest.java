@@ -23,6 +23,7 @@ import org.prorefactor.refactor.RefactorSession;
 
 
 
+
 /** Test "Parse Unit Binary" files.
  */
 public class PUBTest extends UnitTestBase2 {
@@ -32,23 +33,29 @@ public class PUBTest extends UnitTestBase2 {
 	}
 
 	private RefactorSession refpack = RefactorSession.getInstance();
+	private String relPath = "data/pub/test01.p";
+	private File parseFile;
+	private PUB pub;
 		
 	public static void main(String[] args) {
 		junit.textui.TestRunner.run(PUBTest.class);
 	}
 
-
-	
-	public void test00() throws Exception {
+	protected void setUp() throws Exception {
 		refpack.loadProject("sports2000");
-	}
 
-	public void test01() throws Exception {
-		String relPath = "data/pub/test01.p";
-		File parseFile = new File(relPath);
-		PUB pub = new PUB(parseFile.getCanonicalPath());
+		RefactorSession.getInstance().setProjectBinariesEnabledOn();
+		parseFile = new File(relPath);
+		pub = new PUB(parseFile.getCanonicalPath());
+	}
+	
+	public void testBuild() throws Exception {
 		pub.build();
 		pub = new PUB(parseFile.getCanonicalPath());
+		assertTrue(pub.load());
+	}
+
+	public void testIncludeName() throws Exception {
 		assertTrue(pub.load());
 		String [] fileIndex = pub.getTree().getFilenames();
 		
@@ -56,14 +63,33 @@ public class PUBTest extends UnitTestBase2 {
 		File iGet = new File(fileIndex[1]);
 		File iBase = new File("data/pub/test01.i");
 		assertTrue(iGet.getCanonicalPath().equals(iBase.getCanonicalPath()));
+	}
+
+	public void testTimeStamp() throws Exception {
 
 		// Test that the file timestamp checking works
+		long origTime = parseFile.lastModified();
+		assertTrue(parseFile.setLastModified(System.currentTimeMillis() + 10000));
+		assertFalse(pub.load());
+		assertTrue(parseFile.setLastModified(origTime));
+		assertTrue(pub.load());
+		
+	}
+
+	public void testIncludeTimeStamp() throws Exception {
+		// Test that the file timestamp checking works on included files
+		File iBase = new File("data/pub/test01.i");
 		long origTime = iBase.lastModified();
 		iBase.setLastModified(System.currentTimeMillis() + 10000);
 		assertFalse(pub.load());
 		iBase.setLastModified(origTime);
 		assertTrue(pub.load());
 		
+	}
+
+	public void testSchemaLoad() throws Exception {
+		assertTrue(pub.load());
+
 		// Test that the schema load works
 		ArrayList tables = new ArrayList();
 		pub.copySchemaTableLowercaseNamesInto(tables);
@@ -74,27 +100,48 @@ public class PUBTest extends UnitTestBase2 {
 		assertTrue(fields.size() == 1);
 		assertTrue(fields.get(0).toString().equals("name"));
 
+	}
+
+	public void testImportTable() throws Exception {
+		assertTrue(pub.load());
+
 		// Test the import table.
 		PUB.SymbolRef [] imports = pub.getImportTable();
 		PUB.SymbolRef imp = imports[0];
 		assertTrue(imp.progressType == TokenTypes.VARIABLE);
 		assertTrue(imp.symbolName.equals("sharedChar"));
 		
+	}
+
+	public void testExportTable() throws Exception {
+		assertTrue(pub.load());
+
 		// Test the export table.
 		PUB.SymbolRef [] exports = pub.getExportTable();
 		PUB.SymbolRef exp = exports[0];
 		assertTrue(exp.progressType == TokenTypes.FRAME);
 		assertTrue(exp.symbolName.equals("myFrame"));
 		
+	}
+
+	public void testComments() throws Exception {
+		assertTrue(pub.load());
+
 		// Test that there are comments in front of the first real node
 		JPNode topNode = pub.getTree();
 		assertTrue(topNode.firstNaturalChild().getComments().length() > 2);
 		
+	}
+
+	public void testText() throws Exception {
+		assertTrue(pub.load());
+
 		// Test that the ID nodes have text.
+		JPNode topNode = pub.getTree();
 		for (JPNode node : topNode.query(TokenTypes.ID)) {
 			assertTrue(node.getText().length() > 0);
 		}
 		
 	}
-
+	
 }
