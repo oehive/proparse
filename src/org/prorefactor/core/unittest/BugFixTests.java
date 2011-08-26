@@ -2,7 +2,7 @@
  * Authors: John Green
  * July 4, 2006.
  * 
- * Copyright (c) 2006 Joanju (www.joanju.com).
+ * Copyright (c) 2006-2011 Joanju (www.joanju.com).
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,57 +12,44 @@
 package org.prorefactor.core.unittest;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.Iterator;
 
 import junit.framework.TestCase;
 
-import org.prorefactor.core.schema.Schema;
+import org.apache.commons.io.FileUtils;
+import org.prorefactor.refactor.RefactorSession;
 import org.prorefactor.treeparser.ParseUnit;
+import org.prorefactor.treeparserbase.JPTreeParser;
 
 
-/** Test bug fixes. */
+/** Test the tree parsers against problematic syntax.
+ * These tests just run the tree parsers against the data/bugsfixed directory.
+ * If no exceptions are thrown, then the tests pass.
+ * The files in the "bugsfixed" directories are subject to change, so no other
+ * tests should be added other than the expectation that they parse clean.
+ */
 public class BugFixTests extends TestCase {
 
+	
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		Schema schema = Schema.getInstance();
-		schema.clear();
-		schema.loadSchema("proparse.schema");
+		RefactorSession refpack = RefactorSession.getInstance();
+		refpack.loadProjectForced("unittest");
 	}
 
 	public void test01() throws Exception {
-		File file = new File("data/bugsfixed/bug01.p");
-		ParseUnit pu = new ParseUnit(file);
-		pu.treeParser01();
-		// No further tests needed. Passes if parses clean.
-	}
-
-	public void test02() throws Exception {
-		File file = new File("data/bugsfixed/bug02.p");
-		ParseUnit pu = new ParseUnit(file);
-		pu.treeParser01();
-		// No further tests needed. Passes if parses clean.
-	}
-
-	public void test03() throws Exception {
-		File file = new File("data/bugsfixed/bug03.p");
-		ParseUnit pu = new ParseUnit(file);
-		pu.treeParser01();
-		// No further tests needed. Passes if parses clean.
-	}
-
-	public void test04() throws Exception {
-		File file = new File("data/bugsfixed/bug04.p");
-		ParseUnit pu = new ParseUnit(file);
-		pu.treeParser01();
-		// No further tests needed. Passes if parses clean.
-	}
-
-	public void test05() throws Exception {
-		File file = new File("data/bugsfixed/bug05.p");
-		ParseUnit pu = new ParseUnit(file);
-		pu.treeParser01();
-		// No further tests needed. Passes if parses clean.
+		File directory = new File("data/bugsfixed");
+		String [] extensions = {"p", "w", "cls"};
+		Collection files = FileUtils.listFiles(directory, extensions, true);
+		for (Iterator it = files.iterator(); it.hasNext();) {
+			File file = (File) it.next();
+			ParseUnit pu = new ParseUnit(file);
+			pu.parse();
+			pu.treeParser(new JPTreeParser());
+			pu.treeParser01();
+		}
 	}
 
 }

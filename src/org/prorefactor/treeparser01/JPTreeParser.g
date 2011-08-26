@@ -4,7 +4,7 @@ JPTreeParser.g - Primary tree parser.
 
 Joanju Proparse Syntax Tree Structure Specification
 
-Copyright (c) 2001-2010 Joanju Software.
+Copyright (c) 2001-2011 Joanju Software.
 All rights reserved. This program and the accompanying materials 
 are made available under the terms of the Eclipse Public License v1.0
 which accompanies this distribution, and is available at
@@ -2214,7 +2214,7 @@ openquerystate
 	;
 
 osappendstate
-	:	#(OSAPPEND anyorvalue anyorvalue state_end )
+	:	#(OSAPPEND filenameorvalue filenameorvalue state_end )
 	;
 
 oscommandstate
@@ -2229,7 +2229,7 @@ oscommandstate
 	;
 
 oscopystate
-	:	#(OSCOPY anyorvalue anyorvalue state_end )
+	:	#(OSCOPY filenameorvalue filenameorvalue state_end )
 	;
 
 oscreatedirstate
@@ -2241,7 +2241,7 @@ osdeletestate
 	;
 
 osrenamestate
-	:	#(OSRENAME anyorvalue anyorvalue state_end )
+	:	#(OSRENAME filenameorvalue filenameorvalue state_end )
 	;
 
 outputclosestate
