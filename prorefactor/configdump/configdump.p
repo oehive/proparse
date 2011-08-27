@@ -39,10 +39,12 @@ ASSIGN thePropath = REPLACE(thePropath, ":":U, "~\:":U).
 PUT UNFORMATTED "propath=":U + thePropath SKIP.
 
 PUT UNFORMATTED "database_aliases=":U.
+DEF VAR separator AS CHAR NO-UNDO.
 REPEAT i=1 TO NUM-ALIASES:
   IF ALIAS(i) = "DICTDB":U THEN NEXT.
-  IF i > 1 THEN PUT UNFORMATTED ",":U.
+  PUT UNFORMATTED separator.
   PUT UNFORMATTED ALIAS(i) + ",":U + LDBNAME(ALIAS(i)).
+  separator = ",".
 END.
 PUT UNFORMATTED SKIP.
 

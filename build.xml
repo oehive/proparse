@@ -38,7 +38,7 @@
 					<attribute name="Date" value="${TODAY}"/>
 				</section>
 				<section name="Copyright">
-					<attribute name="Copy" value="(C) Joanju Software 2002-2010"/>
+					<attribute name="Copy" value="(C) Joanju Software 2002-2011"/>
 					<attribute name="License" value="Eclipse Public License version 1.0"/>
 				</section>
 			</manifest>
