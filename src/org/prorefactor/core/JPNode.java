@@ -1,7 +1,7 @@
 /** Created: October, 2002
  * Authors: John Green
  *
- * Copyright (c) 2002-2008 Joanju Software (www.joanju.com)
+ * Copyright (c) 2002-2011 Joanju Software (www.joanju.com)
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -350,6 +350,25 @@ public class JPNode extends BaseAST implements IJPNode, Xferable {
 			tempT = (ProToken) tempT.getHiddenAfter();
 		}
 		tailNode.setHiddenBefore(lastT);
+	}
+
+
+	/** Find the first hidden token after this node's last descendant. */
+	public ProToken findFirstHiddenAfterLastDescendant() {
+		// There's no direct way to get a "hidden after" token,
+		// so to find the hidden tokens after the current node's last
+		// descendant, we find the next sibling of the current node,
+		// find the first "natural" descendant of it (if it is not
+		// itself natural), and then get its first hidden token.
+		JPNode nextNatural = nextSibling();
+		if (nextNatural == null)
+			return null;
+		if (nextNatural.getType() != TokenTypes.Program_tail) {
+			nextNatural = nextNatural.firstNaturalChild();
+			if (nextNatural == null)
+				return null;
+		}
+		return nextNatural.getHiddenFirst();
 	}
 
 

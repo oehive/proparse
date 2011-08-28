@@ -28,7 +28,6 @@ import org.prorefactor.reports.HowUsedConsole;
 import org.prorefactor.reports.WhereUsedConsole;
 import org.prorefactor.treeparser.ParseUnit;
 
-import com.joanju.ProparseLdr;
 
 
 /** Provides command-line access to ProRefactor configuration
@@ -37,7 +36,6 @@ import com.joanju.ProparseLdr;
 public class Console {
 	
 	protected BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	protected ProparseLdr proparse = ProparseLdr.getInstance();
 	protected RefactorSession session = RefactorSession.getInstance();
 
 	
@@ -64,8 +62,7 @@ public class Console {
 	
 	
 	protected void processSelection(String choice) throws Exception {
-		if (choice.equalsIgnoreCase("v")) showProparseVersion();
-		else if (choice.equalsIgnoreCase("h")) howUsedReport();
+		if (choice.equalsIgnoreCase("h")) howUsedReport();
 		else if (choice.equalsIgnoreCase("l")) loadProjectSettings();
 		else if (choice.equalsIgnoreCase("p")) parseDirectory();
 		else if (choice.equalsIgnoreCase("w")) whereUsedReport();
@@ -183,18 +180,11 @@ public class Console {
 			+ "l) Load Settings for a project \n"
 			+ "p) Parse a directory \n"
 			+ "q) Quit \n"
-			+ "v) show proparse Version \n"
 			+ "w) Where used report \n"
 			);
 	}
 	
 	
-	protected void showProparseVersion() {
-		out.print("Proparse version: ");
-		out.println(proparse.getVersion());
-	}
-
-
 	private void whereUsedReport() throws Exception {
 		checkProjectIsLoaded();
 		new WhereUsedConsole().go();

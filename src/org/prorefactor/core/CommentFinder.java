@@ -2,7 +2,7 @@
  * Created on Nov 6, 2003
  * John Green
  *
- * Copyright (C) 2003 Joanju Limited
+ * Copyright (C) 2003-2011 Joanju Limited
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,7 +26,6 @@ public class CommentFinder {
 
 	private String findString = null;
 	private int numResults = 0;
-	private JPUtil pluspack = JPUtil.getInstance();
 
 
 
@@ -51,7 +50,7 @@ public class CommentFinder {
 	 */
 	public int examineAfter(JPNode node) {
 		int numAfter = 0;
-		ProToken t = pluspack.findFirstHiddenAfterLastDescendant(node);
+		ProToken t = node.findFirstHiddenAfterLastDescendant();
 		while (t != null) {
 			if (t.getType() == TokenTypes.COMMENT) {
 				numAfter += commentTextReview(t);
