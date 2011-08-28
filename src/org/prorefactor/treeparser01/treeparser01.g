@@ -8,7 +8,7 @@ name resolution, scoping, etc.
 To find actions taken within this grammar, search for "action.",
 which is the tree parser action object.
 
-Copyright (C) 2001-2010 Joanju Software (www.joanju.com)
+Copyright (C) 2001-2011 Joanju Software (www.joanju.com)
 All rights reserved. This program and the accompanying materials 
 are made available under the terms of the Eclipse Public License v1.0
 which accompanies this distribution, and is available at

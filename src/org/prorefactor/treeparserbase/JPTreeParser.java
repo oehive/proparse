@@ -31074,7 +31074,11 @@ inputState.guessing--;
 			_t = _t.getFirstChild();
 			{
 			if (_t==null) _t=ASTNULL;
-			if (((_t.getType() >= LEXDATE && _t.getType() <= Last_Token_Number))) {
+			if ((_t.getType()==VALUE)) {
+				valueexpression(_t);
+				_t = _retTree;
+			}
+			else if (((_t.getType() >= LEXDATE && _t.getType() <= Last_Token_Number))) {
 				AST tmp2018_AST_in = (AST)_t;
 				if ( _t==null ) throw new MismatchedTokenException();
 				_t = _t.getNextSibling();

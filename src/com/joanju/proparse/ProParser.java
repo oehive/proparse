@@ -42286,7 +42286,11 @@ inputState.guessing--;
 		astFactory.makeASTRoot(currentAST, tmp2413_AST);
 		match(PRINTER);
 		{
-		if ((_tokenSet_218.member(LA(1))) && (_tokenSet_140.member(LA(2)))) {
+		if ((LA(1)==VALUE)) {
+			valueexpression();
+			astFactory.addASTChild(currentAST, returnAST);
+		}
+		else if ((_tokenSet_218.member(LA(1))) && (_tokenSet_140.member(LA(2)))) {
 			{
 			JPNode tmp2414_AST = null;
 			tmp2414_AST = (JPNode)astFactory.create(LT(1));
@@ -58993,7 +58997,7 @@ inputState.guessing--;
 	}
 	public static final BitSet _tokenSet_217 = new BitSet(mk_tokenSet_217());
 	private static final long[] mk_tokenSet_218() {
-		long[] data = new long[52];
+		long[] data = new long[56];
 		data[0]=-274877907470L;
 		data[1]=-562949953421345L;
 		data[2]=-2097153L;
@@ -59005,7 +59009,8 @@ inputState.guessing--;
 		data[9]=-513L;
 		for (int i = 10; i<=11; i++) { data[i]=-1L; }
 		data[12]=-2199023255553L;
-		for (int i = 13; i<=17; i++) { data[i]=-1L; }
+		data[13]=-65L;
+		for (int i = 14; i<=17; i++) { data[i]=-1L; }
 		data[18]=562949953421311L;
 		return data;
 	}

@@ -16,7 +16,7 @@ do we not want to try to figure out (from lexical) if it's an attribute
 or method, but we want to make sure that either field or METHOD will
 work in a particular spot, that METHOD is tried for first.
 
-Copyright (C) 2001-2010 Joanju Software (www.joanju.com). All rights reserved.
+Copyright (C) 2001-2011 Joanju Software (www.joanju.com). All rights reserved.
 This file is made available under the terms of the Eclipse Public License v1.0.
 */
 
@@ -2952,9 +2952,11 @@ io_osdir
 	;
 io_printer
 	:	PRINTER^  // A unix printer name could be just about anything.
-		(options{greedy=true;}: ~(	NUMCOPIES|COLLATE|LANDSCAPE|PORTRAIT|APPEND|BINARY|ECHO|NOECHO
-		|	KEEPMESSAGES|NOMAP|MAP|PAGED|PAGESIZE_KW|UNBUFFERED|NOCONVERT|CONVERT|PERIOD|EOF
-		))?
+		(	options{greedy=true;}:
+			valueexpression
+		|	~(	VALUE|NUMCOPIES|COLLATE|LANDSCAPE|PORTRAIT|APPEND|BINARY|ECHO|NOECHO
+				|	KEEPMESSAGES|NOMAP|MAP|PAGED|PAGESIZE_KW|UNBUFFERED|NOCONVERT|CONVERT|PERIOD|EOF)
+		)?
 	;
 
 label_constant

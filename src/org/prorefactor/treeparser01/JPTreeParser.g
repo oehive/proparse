@@ -2038,7 +2038,7 @@ interfacestate
 	
 io_phrase
 	:	(	#(OSDIR LEFTPAREN expression RIGHTPAREN (NOATTRLIST)? )
-		|	#(PRINTER  (.)? )
+		|	#(PRINTER (valueexpression|.)? )
 		|	TERMINAL
 		|	(valueexpression | FILENAME) *
 		)
