@@ -1,7 +1,7 @@
 /* Created on 25-Nov-2005
  * Authors: john
  *
- * Copyright (c) 2002-2005 Joanju (www.joanju.com)
+ * Copyright (c) 2002-2011 Joanju (www.joanju.com)
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import java.util.HashMap;
 
 /** Prints out the structure of a JPNode AST.
  * Prints nodes one per line, using indentation to show the tree structure.
- * Use TokenLister instead if you want to print using Proparse's API directly.
  */
 public class JPNodeLister {
 

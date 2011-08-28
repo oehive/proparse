@@ -40595,7 +40595,8 @@ inputState.guessing--;
 				_t = _t.getNextSibling();
 				break;
 			}
-			case 3:
+			case EOF:
+			case PERIOD:
 			{
 				break;
 			}
@@ -40730,8 +40731,6 @@ inputState.guessing--;
 			}
 			}
 			}
-			state_end(_t);
-			_t = _retTree;
 			break;
 		}
 		default:
@@ -40740,6 +40739,8 @@ inputState.guessing--;
 		}
 		}
 		}
+		state_end(_t);
+		_t = _retTree;
 		_t = __t2453;
 		_t = _t.getNextSibling();
 		_retTree = _t;

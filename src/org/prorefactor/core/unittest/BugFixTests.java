@@ -53,3 +53,16 @@ public class BugFixTests extends TestCase {
 	}
 
 }
+
+
+/*
+import org.prorefactor.core.JPNodeLister;
+import org.prorefactor.core.TokenTypes;
+
+			boolean debug = true;
+			if (debug && file.getName().equals("bug06.p")) {
+				JPNodeLister lister = new JPNodeLister(pu.getTopNode(), "C:\\temp\\nodelister.txt", new TokenTypes());
+				lister.print();
+			}
+
+*/

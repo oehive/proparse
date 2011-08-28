@@ -2802,8 +2802,8 @@ waitforstate
 				(#(FOCUS gwidget))?
 				(#(PAUSE expression))?
 				(EXCLUSIVEWEBUSER (expression)?)?
-				state_end
 			)
+			state_end
 		)
 	;
 
