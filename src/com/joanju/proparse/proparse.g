@@ -385,7 +385,13 @@ builtinfunc
 	|	currentvaluefunc // is also a pseudfn.
 	|	dynamiccurrentvaluefunc // is also a pseudfn.
 	|	DYNAMICFUNCTION^ LEFTPAREN expression (in_expr)? (COMMA parameter)* RIGHTPAREN (options{greedy=true;}: NOERROR_KW)?
-		// ENTERED and NOTENTERED are only dealt with as part of an expression term. See: exprt.
+	|	DYNAMICINVOKE^
+		LEFTPAREN
+		( (exprt)=>exprt | type_name )
+		COMMA expression
+		(COMMA parameter)*
+		RIGHTPAREN
+	// ENTERED and NOTENTERED are only dealt with as part of an expression term. See: exprt.
 	|	entryfunc // is also a pseudfn.
 	|	ETIME_KW^ funargs  // also noarg
 	|	EXTENT^ LEFTPAREN field RIGHTPAREN
@@ -455,7 +461,6 @@ argfunc
 		|	DECRYPT^
 		|	DYNAMICCAST^
 		|	DYNAMICNEXTVALUE^
-		|	DYNAMICINVOKE^
 		|	ENCODE^
 		|	ENCRYPT^
 		|	EXP^

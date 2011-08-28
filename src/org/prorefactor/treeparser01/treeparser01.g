@@ -156,7 +156,16 @@ functioncall
 			LEFTPAREN expression (#(IN_KW expression))? (COMMA parameter)* RIGHTPAREN (NOERROR_KW)?
 			{action.callEnd();}
 		)
-		// ENTERED and NOTENTERED are only dealt with as part of an expression term. See: exprt.
+	|	#(	di:DYNAMICINVOKE
+			{action.callBegin(#di);}
+			LEFTPAREN
+			(TYPE_NAME|exprt)
+			COMMA expression
+			(COMMA parameter)*
+			RIGHTPAREN
+			{action.callEnd();}
+		)
+	// ENTERED and NOTENTERED are only dealt with as part of an expression term. See: exprt.
 	|	entryfunc // is also a pseudfn.
 	|	#(ETIME_KW (funargs)? )
 	|	#(EXTENT LEFTPAREN fld[CQ.SYMBOL] RIGHTPAREN )

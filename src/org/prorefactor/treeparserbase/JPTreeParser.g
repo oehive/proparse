@@ -391,7 +391,8 @@ functioncall
 	|	currentvaluefunc // is also a pseudfn.
 	|	dynamiccurrentvaluefunc // is also a pseudfn.
 	|	#(DYNAMICFUNCTION LEFTPAREN expression (#(IN_KW expression))? (COMMA parameter)* RIGHTPAREN (NOERROR_KW)? )
-		// ENTERED and NOTENTERED are only dealt with as part of an expression term. See: exprt.
+	|	#(DYNAMICINVOKE LEFTPAREN (TYPE_NAME|exprt) COMMA expression (COMMA parameter)* RIGHTPAREN )
+	// ENTERED and NOTENTERED are only dealt with as part of an expression term. See: exprt.
 	|	entryfunc // is also a pseudfn.
 	|	#(ETIME_KW (funargs)? )
 	|	#(EXTENT LEFTPAREN field RIGHTPAREN )
@@ -460,7 +461,6 @@ argfunc
 	|	#(DECRYPT funargs )
 	|	#(DYNAMICCAST funargs )
 	|	#(DYNAMICNEXTVALUE funargs )
-	|	#(DYNAMICINVOKE funargs )
 	|	#(ENCODE funargs )
 	|	#(ENCRYPT funargs )
 	|	#(EXP funargs )
