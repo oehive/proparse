@@ -25,3 +25,7 @@ THIS-OBJECT:DataAccessObject =
         DYNAMIC-NEW (THIS-OBJECT:DataAccessName)
                     (THIS-OBJECT:DatasetHandle) .
 
+
+/* unexpected AST node: FINAL */
+method public final void whatever():
+end method.

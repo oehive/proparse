@@ -1325,7 +1325,7 @@ def_shared
 	;
 
 def_modifiers
-	:	( PRIVATE | PROTECTED | PUBLIC | STATIC | ABSTRACT | OVERRIDE )*
+	:	( PRIVATE | PROTECTED | PUBLIC | STATIC | ABSTRACT | OVERRIDE | FINAL )*
 	;
 
 definebrowsestate
