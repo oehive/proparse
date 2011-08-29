@@ -1707,7 +1707,7 @@ dynamiccurrentvaluefunc
 dynamicnewstate
 	:	#(	Assign_dynamic_new
 			#(	EQUAL
-				field
+				(widattr|field)
 				#(DYNAMICNEW expression parameterlist)
 			)
 			(NOERROR_KW)?

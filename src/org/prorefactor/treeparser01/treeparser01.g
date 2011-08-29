@@ -1021,7 +1021,7 @@ display_item
 dynamicnewstate
 	:	#(	Assign_dynamic_new
 			#(	EQUAL
-				fld[CQ.UPDATING]
+				(widattr | fld[CQ.UPDATING])
 				#(dn:DYNAMICNEW expression {action.callBegin(#dn);} parameterlist {action.callEnd();})
 			)
 			(NOERROR_KW)?

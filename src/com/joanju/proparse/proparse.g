@@ -130,9 +130,10 @@ blockorstate
 		|	dot_comment // ".anything" is a dotcomment if it's where a statement would fit.
 		|	proparse_directive
 		|	(blocklabel LEXCOLON (DO|FOR|REPEAT))=> labeled_block
+		|	(widattr EQUAL DYNAMICNEW)=> dynamicnewstate
+		|	(field EQUAL DYNAMICNEW)=> dynamicnewstate
 		|	(pseudfn EQUAL)=> assignstate3
 		|	(widattr EQUAL)=> assignstate4
-		|	(field EQUAL DYNAMICNEW)=> dynamicnewstate
 		|	(field EQUAL)=> assignstate2
 		|	// Anything followed by an OBJCOLON is going to be an expression statement.
 			// We have to disambiguate, for example, THIS-OBJECT:whatever from the THIS-OBJECT statement.
@@ -2406,7 +2407,8 @@ dynamicnewstate
 		}
 	;
 field_equal_dynamic_new
-	:	field e:EQUAL^ dynamic_new {support.attrOp(#e);}
+	:	((widattr)=>widattr | field)
+		e:EQUAL^ dynamic_new {support.attrOp(#e);}
 	;
 dynamic_new
 	:	DYNAMICNEW^ expression parameterlist
