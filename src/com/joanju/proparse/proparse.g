@@ -2132,8 +2132,8 @@ defineparam_as
 	;
 
 definepropertystate
-	:	PROPERTY n:new_identifier AS datatype (extentphrase)?
-		(options{greedy=true;}: initial_constant|NOUNDO)*
+	:	PROPERTY n:new_identifier AS datatype
+		(options{greedy=true;}: extentphrase|initial_constant|NOUNDO)*
 		defineproperty_accessor (options{greedy=true;}: defineproperty_accessor)?
 		{support.defVar(#n.getText());}
 	;

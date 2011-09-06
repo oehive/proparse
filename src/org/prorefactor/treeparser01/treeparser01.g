@@ -854,7 +854,7 @@ defineparam_var
 definepropertystate
 	:	#(	def:DEFINE def_modifiers PROPERTY
 			id:ID {push(action.defineVariable(#def, #id));}
-			as:AS datatype {action.defAs(#as);} (extentphrase_def_symbol)? (initial_constant|NOUNDO)*
+			as:AS datatype {action.defAs(#as);} (extentphrase_def_symbol|initial_constant|NOUNDO)*
 			{action.addToSymbolScope(pop());}
 			defineproperty_accessor (defineproperty_accessor)?
 		)

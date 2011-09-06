@@ -1526,8 +1526,8 @@ defineparam_var
 	;
 
 definepropertystate
-	:	#(	DEFINE def_modifiers PROPERTY ID AS datatype (extentphrase)?
-			(initial_constant|NOUNDO)*
+	:	#(	DEFINE def_modifiers PROPERTY ID AS datatype
+			(extentphrase|initial_constant|NOUNDO)*
 			defineproperty_accessor (defineproperty_accessor)?
 		)
 	;
