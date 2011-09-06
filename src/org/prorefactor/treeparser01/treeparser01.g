@@ -1383,7 +1383,7 @@ methodstate
 				// We predicate on the next node being Code_block.
 				// (Upper/lowercase matters. Node: Code_block. Rule/branch: code_block.)
 				(block_colon Code_block)=> block_colon code_block #(END (METHOD)? ) state_end
-			|	state_end
+			|	(PERIOD|LEXCOLON)
 			)
 			{action.methodEnd(#m);}
 		)

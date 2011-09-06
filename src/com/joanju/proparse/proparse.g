@@ -3061,7 +3061,7 @@ methodstate
 		id:new_identifier {support.defMethod(#id);}
 		(function_params)
 		(	{isAbstract || support.isInterface()}?
-			state_end  // An INTERFACE declares without defining, ditto ABSTRACT.
+			(PERIOD|LEXCOLON)  // An INTERFACE declares without defining, ditto ABSTRACT.
 		|	block_colon
 			{support.addInnerScope();}
 			code_block
