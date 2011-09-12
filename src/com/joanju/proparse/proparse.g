@@ -1999,7 +1999,14 @@ definedatasetstate
 	;
 data_relation
 	:	DATARELATION^ (n:identifier)?
-		FOR record COMMA record (field_mapping_phrase)? (options{greedy=true;}: REPOSITION|NESTED)*
+		FOR record COMMA record
+		(options{greedy=true;}:
+			field_mapping_phrase
+		|	REPOSITION
+		|	datarelation_nested
+		|	NOTACTIVE
+		|	RECURSIVE
+		)*
 		{if (#n != null) support.defVar(#n.getText());}
 	;
 field_mapping_phrase
@@ -2007,6 +2014,9 @@ field_mapping_phrase
 		field COMMA field
 		( COMMA field COMMA field )*
 		RIGHTPAREN
+	;
+datarelation_nested
+	:	NESTED^ (FOREIGNKEYHIDDEN)?
 	;
 
 definedatasourcestate
@@ -2510,6 +2520,7 @@ fieldoption
 	|	viewasphrase
 	|	TTCODEPAGE
 	|	xml_data_type
+	|	xml_node_name
 	|	xml_node_type
 	|	serialize_name
 	|	SERIALIZEHIDDEN
@@ -4121,7 +4132,7 @@ DEFAULTVALUE | DYNAMICCAST | ERRORSTACKTRACE | FINALLY | FIRSTFORM | LASTFORM | 
 MARKROWSTATE | MAXIMUMLEVEL | NOTACTIVE | RESTARTROW | ROUTINELEVEL |
 STATIC | THROW | TOPNAVQUERY | UNBOX
 // 10.2B
-ABSTRACT | DELEGATE | DYNAMICNEW | EVENT | SERIALIZEHIDDEN | SERIALIZENAME | SIGNATURE | STOPAFTER
+ABSTRACT | DELEGATE | DYNAMICNEW | EVENT | FOREIGNKEYHIDDEN | SERIALIZEHIDDEN | SERIALIZENAME | SIGNATURE | STOPAFTER
 	;
 
 

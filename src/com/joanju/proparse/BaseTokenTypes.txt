@@ -1,4 +1,6 @@
-// $ANTLR 2.7.1: propar.gen.g -> ProParserTokenTypes.txt$
+// Input token types for proparse.g.
+// Update this file when new token types are added.
+// Antlr generates ProParserTokenTypes (.txt and .java).
 ProParser    // output token vocab name
 LEXDATE=4
 NAMEDOT=5
@@ -1192,4 +1194,5 @@ SERIALIZENAME=1196
 SIGNATURE=1197
 STOPAFTER=1198
 Assign_dynamic_new=1199
-Last_Token_Number=1200
+FOREIGNKEYHIDDEN=1200
+Last_Token_Number=1201

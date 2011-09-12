@@ -6,7 +6,7 @@ For node type names and numbers, this class provides:
 Couldn't just use the literals table, because it does not contain
 the names for synthetic node types.
 
-Copyright (C) 2001-2010 Joanju Software (www.joanju.com). All rights reserved.
+Copyright (C) 2001-2011 Joanju Software (www.joanju.com). All rights reserved.
 This file is made available under the terms of the Eclipse Public License v1.0.
 */
 package com.joanju.proparse;
@@ -20,7 +20,6 @@ import java.io.IOException;
 import com.joanju.Xferable;
 import com.joanju.DataXferStream;
 
-@SuppressWarnings({"StringWithMistakes"})
 public class NodeTypes implements ProParserTokenTypes, TokenTypesI, Xferable {
 
 	static HashMap<String, Integer> literalsMap = new HashMap<String, Integer>();
@@ -701,6 +700,7 @@ public class NodeTypes implements ProParserTokenTypes, TokenTypesI, Xferable {
 		add(FONTTABLE, 10, "font-table", TI.KEYWORD | TI.SYSHDL);
 		add(FOR, 3, "for", TI.KEYWORD | TI.RESERVED);
 		add(FORCEFILE, 10, "force-file", TI.KEYWORD);
+		add(FOREIGNKEYHIDDEN, 18, "foreign-key-hidden", TI.KEYWORD);
 		add(FORMAT, 4, "format", TI.KEYWORD | TI.RESERVED);
 		add(FORMINPUT, 9, "forminput", TI.KEYWORD);
 		add(FORMLONGINPUT, 15, "form-long-input", TI.KEYWORD);

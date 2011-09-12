@@ -680,8 +680,14 @@ definedatasetstate
 		)
 	;
 data_relation
-	:	#(	DATARELATION (ID)? FOR tbl[CQ.INIT] COMMA tbl[CQ.INIT]
-			(field_mapping_phrase)? (REPOSITION|NESTED)*
+	:	#(	DATARELATION (ID)?
+			FOR tbl[CQ.INIT] COMMA tbl[CQ.INIT]
+			(	field_mapping_phrase
+			|	REPOSITION
+			|	#(NESTED (FOREIGNKEYHIDDEN)?)
+			|	NOTACTIVE
+			|	RECURSIVE
+			)*
 		)
 	;
 field_mapping_phrase
@@ -1093,6 +1099,7 @@ fieldoption
 	|	viewasphrase
 	|	TTCODEPAGE
 	|	xml_data_type
+	|	xml_node_name
 	|	xml_node_type
 	|	#(SERIALIZENAME QSTRING)
 	|	SERIALIZEHIDDEN

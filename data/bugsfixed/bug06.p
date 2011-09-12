@@ -29,3 +29,37 @@ THIS-OBJECT:DataAccessObject =
 /* unexpected AST node: FINAL */
 method public final void whatever():
 end method.
+
+
+def var obj as progress.lang.object.
+def var classname as char.
+os-delete value(classname).
+obj = dynamic-new classname ().
+if valid-object(obj) then obj:Before() .
+
+
+
+/* unexpected token: XML-NODE-NAME */
+DEFINE TEMP-TABLE ttClassPath NO-UNDO XML-NODE-NAME "ClassPath"
+    FIELD Directory AS CHARACTER XML-NODE-NAME "DirectoryEntry" XML-NODE-TYPE "ATTRIBUTE"
+    FIELD Prefix AS CHARACTER XML-NODE-NAME "PrefixWith" XML-NODE-TYPE "ATTRIBUTE"
+     .
+
+
+
+/* unexpected token: RECURSIVE */
+DEFINE TEMP-TABLE ttDockManager NO-UNDO
+    FIELD LayoutStyle AS CHARACTER 
+    .
+DEFINE TEMP-TABLE ttDockAreas NO-UNDO 
+    FIELD PaneType AS CHARACTER 
+    FIELD InternalId AS CHARACTER
+    FIELD ParentInternalId AS CHARACTER
+    . 
+DEFINE DATASET dsDockManagerSettings
+    FOR ttDockManager, ttDockAreas 
+    DATA-RELATION ParentRelation  
+        FOR ttDockAreas, ttDockAreas RECURSIVE
+            RELATION-FIELDS (InternalId, ParentInternalId).
+
+

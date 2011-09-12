@@ -2,7 +2,7 @@
  * Created on Nov 20, 2003
  * John Green
  *
- * Copyright (C) 2003-2006 Joanju Software (www.joanju.com)
+ * Copyright (C) 2003-2011 Joanju Software (www.joanju.com)
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1185,6 +1185,7 @@ public class TokenTypes implements JPTreeParserTokenTypes, TokenTypesI {
 		allTokens[DBREMOTEHOST].keywordText = "DB-REMOTE-HOST";
 		allTokens[DYNAMICCAST].keywordText = "DYNAMIC-CAST";
 		allTokens[XMLNODENAME].keywordText = "XML-NODE-NAME";
+		allTokens[FOREIGNKEYHIDDEN].keywordText = "FOREIGN-KEY-HIDDEN";
 
 	}
 }
