@@ -1198,5 +1198,6 @@ public interface ProEvalTokenTypes {
 	int SIGNATURE = 1197;
 	int STOPAFTER = 1198;
 	int Assign_dynamic_new = 1199;
-	int Last_Token_Number = 1200;
+	int FOREIGNKEYHIDDEN = 1200;
+	int Last_Token_Number = 1201;
 }

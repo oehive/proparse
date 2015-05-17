@@ -1,0 +1,14 @@
+/bin/
+/lib/
+prorefactor/temp/listingfile.txt
+proparse.assemblies.zip
+proparse.jar
+proparse.java.zip
+src/com/joanju/proparse/ProEval.smap
+src/com/joanju/proparse/ProParser.smap
+src/org/prorefactor/treeparser01/TreeParser01.smap
+src/org/prorefactor/treeparserbase/JPTreeParser.smap
+src/org/prorefactor/treeparser01/expandedtreeparser01.g
+data/tempsnippet.p
+data/tp01tests/frames.out.txt
+data/tp01tests/test01.out.p

@@ -1278,6 +1278,7 @@ public class NodeTypes implements ProParserTokenTypes, TokenTypesI, Xferable {
 		add(SENDSQLSTATEMENT, 8, "send-sql-statement", TI.KEYWORD);
 		add(SEPARATECONNECTION, 19, "separate-connection", TI.KEYWORD);
 		add(SEPARATORS, 10, "separators", TI.KEYWORD);
+		add(SERIALIZABLE, 12, "serializable", TI.KEYWORD);
 		add(SERIALIZEHIDDEN, 16, "serialize-hidden", TI.KEYWORD);
 		add(SERIALIZENAME, 14, "serialize-name", TI.KEYWORD);
 		add(SERVER, 6, "server", TI.KEYWORD);
@@ -1518,6 +1519,11 @@ public class NodeTypes implements ProParserTokenTypes, TokenTypesI, Xferable {
 		add(YESNO, 6, "yes-no", TI.KEYWORD);
 		add(YESNOCANCEL, 13, "yes-no-cancel", TI.KEYWORD);
 		add(YOF, 4, "y-of", TI.KEYWORD);
+		
+// added by Mike Fechner / Consultingwerk Ltd.
+		add(BLOCKLEVEL, 11, "block-level", TI.KEYWORD);
+		add(GETCLASS, 9, "get-class", TI.KEYWORD | TI.MAY_BE_REGULAR_FUNC);
+		
 	}
 
 

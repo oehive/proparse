@@ -190,6 +190,7 @@ functioncall
 	|	#(sr:SUPER {action.callBegin(#sr);} (parameterlist)? {action.callEnd();} )
 	|	#(TIMEZONE (funargs)? )
 	|	#(TYPEOF LEFTPAREN expression COMMA TYPE_NAME RIGHTPAREN )
+	| #(GETCLASS LEFTPAREN TYPE_NAME RIGHTPAREN )
 	|	#(USERID (funargs)? )
 	|	#(USER (funargs)? )
 	|	sqlaggregatefunc  
@@ -459,6 +460,7 @@ classstate
 			|	USEWIDGETPOOL
 			|	ABSTRACT
 			|	FINAL
+			|   SERIALIZABLE
 			)*
 			block_colon
 			code_block

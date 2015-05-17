@@ -242,6 +242,7 @@ statement
 	|	applystate
 	|	assignstate
 	|	bellstate
+    |   blocklevelstate	
 	|	buffercomparestate
 	|	buffercopystate
 	|	callstate  | casestate | catchstate
@@ -298,7 +299,8 @@ statement
 	|	repeatstate
 	|	repositionstate  
 	|	returnstate  | revokestate
-	|	routinelevelstate | runstatement
+	|	routinelevelstate
+	|	runstatement
 	|	savecachestate  | scrollstate
 	|	seekstate  
 	|	selectstate
@@ -420,6 +422,7 @@ builtinfunc
 	|	SUPER^ parameterlist  // also noarg
 	|	TIMEZONE^ funargs  // also noarg
 	|	TYPEOF^ LEFTPAREN expression COMMA type_name RIGHTPAREN
+	| GETCLASS^ LEFTPAREN type_name RIGHTPAREN
 	|	(USERID^|USER^) funargs  // also noarg
 	|	argfunc
 	|	recordfunc
@@ -678,7 +681,7 @@ parameterlist
 parameterlist_noroot
 // This is used by user defd funcs, because the udfunc name /is/ the root for its parameter list.
 // Using a Parameter_list node would be unnecessary and silly.
-	:	LEFTPAREN (parameter)? (COMMA parameter)* RIGHTPAREN
+	:	LEFTPAREN (parameter (COMMA parameter)*)? RIGHTPAREN
 	;
 
 eventlist
@@ -1399,7 +1402,7 @@ class_type_name
 
 classstate
 	:	c:CLASS^ type_name2
-		(class_inherits | class_implements | USEWIDGETPOOL | ABSTRACT | FINAL)*
+		(class_inherits | class_implements | USEWIDGETPOOL | ABSTRACT | FINAL | SERIALIZABLE)*
 		{	// Header parsing done, call defClass which adds the name and processes inheritance.
 			support.defClass(#c);
 			// Now scan ahead through the entire token stream (!) for method names.
@@ -2354,7 +2357,7 @@ disconnectstate
 
 displaystate
 	:	DISPLAY^
-		( {LA(3)!=OBJCOLON}? stream_name_or_handle )?
+		(options{greedy=true;}: stream_name_or_handle)?
 		(UNLESSHIDDEN)? display_items_or_record
 		(except_fields)? (in_window_expr)?
 		(display_with)*
@@ -2399,9 +2402,8 @@ dostate
 
 downstate
 	:	DOWN^
-		(options{greedy=true;}: {LA(3)!=OBJCOLON}? stream_name_or_handle )?
+		(options{greedy=true;}: stream_name_or_handle)?
 		(options{greedy=true;}: expression)?
-		({LA(3)!=OBJCOLON}? stream_name_or_handle)?
 		(framephrase)? state_end
 		{sthd(##,0);}
 	;
@@ -2472,7 +2474,7 @@ except_using_fields
 	;
 
 exportstate
-	:	EXPORT^ ({LA(3)!=OBJCOLON}? stream_name_or_handle)? (delimiter_constant)?
+	:	EXPORT^ (options{greedy=true;}: stream_name_or_handle)? (delimiter_constant)?
 		display_items_or_record (except_fields)?
 		(NOLOBS)?
 		state_end
@@ -2815,7 +2817,7 @@ help_const
 
 hidestate
 	:	HIDE^
-		({LA(3)!=OBJCOLON}? stream_name_or_handle)?
+		(options{greedy=true;}: stream_name_or_handle)?
 		(options{greedy=true;}: ALL|MESSAGE|(options{greedy=true;}: gwidget)*)? (NOPAUSE)? (in_window_expr)? state_end
 		{sthd(##,0);}
 	;
@@ -2922,12 +2924,13 @@ insertstate
 	;
 
 interfacestate
-	:	INTERFACE^ type_name2 block_colon
+	:	INTERFACE^ type_name2 (interface_inherits)? block_colon
 		{support.interfaceNode(##);}
 		code_block
 		interface_end state_end
 		{sthd(##,0);}
 	;
+interface_inherits: INHERITS^ type_name (COMMA type_name)*;
 interface_end: END^ (INTERFACE)? ;
 
 io_phrase_state_end
@@ -3296,7 +3299,7 @@ processeventsstate
 
 promptforstate
 	:	(PROMPTFOR^|p:PROMPT^ {#p.setType(PROMPTFOR);})
-		({LA(3)!=OBJCOLON}? stream_name_or_handle)?
+		(options{greedy=true;}: stream_name_or_handle)?
 		(UNLESSHIDDEN)? form_items_or_record
 		(goonphrase)?
 		(except_fields)?
@@ -3316,7 +3319,7 @@ publish_opt1
 	;
 
 putstate
-	:	PUT^ ({LA(3)!=OBJCOLON}? stream_name_or_handle)? (CONTROL|UNFORMATTED)?
+	:	PUT^ (options{greedy=true;}: stream_name_or_handle)? (CONTROL|UNFORMATTED)?
 		(	{LA(1)==NULL_KW}? nullphrase
 		|	skipphrase
 		|	spacephrase
@@ -3522,6 +3525,11 @@ routinelevelstate
 		{sthd(##,0);}
 	;
 
+blocklevelstate
+    :   BLOCKLEVEL^ ON ERROR UNDO COMMA THROW state_end
+        {sthd(##,0);}
+    ;
+
 row_expr
 	:	ROW^ expression
 	;
@@ -3608,7 +3616,7 @@ serialize_name
 	;
 
 setstate
-	:	SET^ ({LA(3)!=OBJCOLON}? stream_name_or_handle)? (UNLESSHIDDEN)? form_items_or_record
+	:	SET^ (options{greedy=true;}: stream_name_or_handle)? (UNLESSHIDDEN)? form_items_or_record
 		(goonphrase)?
 		(except_fields)?
 		(in_window_expr)?
@@ -3680,7 +3688,7 @@ stopstate
 
 stream_name_or_handle
 	:	STREAM^ streamname
-	|	STREAMHANDLE^ field
+	|	STREAMHANDLE^ expression
 	;
 
 subscribestate
@@ -3892,9 +3900,8 @@ unsubscribestate
 
 upstate
 	:	UP^
-		(options{greedy=true;}: {LA(3)!=OBJCOLON}? stream_name_or_handle)?
+		(options{greedy=true;}: stream_name_or_handle)?
 		(options{greedy=true;}: expression)?
-		({LA(3)!=OBJCOLON}? stream_name_or_handle)?
 		(framephrase)? state_end
 		{sthd(##,0);}
 	;
@@ -4129,10 +4136,12 @@ INHERITBGCOLOR | NOINHERITBGCOLOR | INHERITFGCOLOR | NOINHERITFGCOLOR | USEWIDGE
 // 10.1C, 10.2A
 ASSEMBLY | BOX | CATCH | CREATELIKESEQUENTIAL | CURRENTQUERY | DATASOURCEROWID | DBREMOTEHOST |
 DEFAULTVALUE | DYNAMICCAST | ERRORSTACKTRACE | FINALLY | FIRSTFORM | LASTFORM | MARKNEW |
-MARKROWSTATE | MAXIMUMLEVEL | NOTACTIVE | RESTARTROW | ROUTINELEVEL |
+MARKROWSTATE | MAXIMUMLEVEL | NOTACTIVE | RESTARTROW | ROUTINELEVEL | BLOCKLEVEL |
 STATIC | THROW | TOPNAVQUERY | UNBOX
 // 10.2B
-ABSTRACT | DELEGATE | DYNAMICNEW | EVENT | FOREIGNKEYHIDDEN | SERIALIZEHIDDEN | SERIALIZENAME | SIGNATURE | STOPAFTER
+ABSTRACT | DELEGATE | DYNAMICNEW | EVENT | FOREIGNKEYHIDDEN | SERIALIZEHIDDEN | SERIALIZENAME | SIGNATURE | STOPAFTER |
+// 11+
+SERIALIZABLE | GETCLASS
 	;
 
 

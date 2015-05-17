@@ -299,6 +299,7 @@ statement
 	|						returnstate
 	|						revokestate
 	|						routinelevelstate
+    |                       blocklevelstate
 	|	{state2(_t, 0)}?			runstate
 	|	{state2(_t, STOREDPROCEDURE)}?	runstoredprocedurestate
 	|	{state2(_t, SUPER)}?			runsuperstate
@@ -417,6 +418,7 @@ functioncall
 	|	#(SUPER (parameterlist)? )
 	|	#(TIMEZONE (funargs)? )
 	|	#(TYPEOF LEFTPAREN expression COMMA TYPE_NAME RIGHTPAREN )
+	| #(GETCLASS LEFTPAREN TYPE_NAME RIGHTPAREN )
 	|	#(USERID (funargs)? )
 	|	#(USER (funargs)? )
 	|	sqlaggregatefunc  
@@ -552,6 +554,7 @@ argfunc
 	|	#(WEEKDAY funargs )
 	|	#(WIDGETHANDLE funargs )
 	|	#(YEAR funargs )
+
 	;
 
 recordfunc
@@ -980,6 +983,7 @@ classstate
 			|	USEWIDGETPOOL
 			|	ABSTRACT
 			|	FINAL
+			| SERIALIZABLE
 			)*
 			block_colon
 			code_block
@@ -2040,8 +2044,10 @@ insertstate
 	;
 	
 interfacestate
-	:	#(INTERFACE TYPE_NAME block_colon code_block #(END (INTERFACE)?) state_end )
+	:	#(INTERFACE TYPE_NAME (interface_inherits)? block_colon code_block #(END (INTERFACE)?) state_end )
 	;
+	
+interface_inherits: #(INHERITS TYPE_NAME (COMMA TYPE_NAME)*);
 	
 io_phrase
 	:	(	#(OSDIR LEFTPAREN expression RIGHTPAREN (NOATTRLIST)? )
@@ -2461,6 +2467,10 @@ routinelevelstate
 	:	#(ROUTINELEVEL ON ERROR UNDO COMMA THROW state_end)
 	;
 
+blocklevelstate
+    :   #(BLOCKLEVEL ON ERROR UNDO COMMA THROW state_end)
+    ;
+
 runstate
 	:	#(	RUN filenameorvalue
 			(LEFTANGLE LEFTANGLE filenameorvalue RIGHTANGLE RIGHTANGLE)?
@@ -2578,7 +2588,7 @@ stopstate
 
 stream_name_or_handle
 	:	#(STREAM ID )
-	|	#(STREAMHANDLE field )
+	|	#(STREAMHANDLE expression )
 	;
 
 subscribestate

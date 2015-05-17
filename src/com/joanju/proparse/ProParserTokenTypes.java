@@ -1204,5 +1204,8 @@ public interface ProParserTokenTypes {
 	int STOPAFTER = 1198;
 	int Assign_dynamic_new = 1199;
 	int FOREIGNKEYHIDDEN = 1200;
-	int Last_Token_Number = 1201;
+	int BLOCKLEVEL = 1201;
+	int SERIALIZABLE = 1202;
+	int GETCLASS = 1203;
+	int Last_Token_Number = 1204;
 }

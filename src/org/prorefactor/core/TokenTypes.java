@@ -1186,6 +1186,10 @@ public class TokenTypes implements JPTreeParserTokenTypes, TokenTypesI {
 		allTokens[DYNAMICCAST].keywordText = "DYNAMIC-CAST";
 		allTokens[XMLNODENAME].keywordText = "XML-NODE-NAME";
 		allTokens[FOREIGNKEYHIDDEN].keywordText = "FOREIGN-KEY-HIDDEN";
+		
+		// Mike Fechner / Consultingwerk Ltd. 
+		allTokens[BLOCKLEVEL].keywordText = "BLOCK-LEVEL";
+		allTokens[GETCLASS].keywordText = "GET-CLASS";
 
 	}
 }

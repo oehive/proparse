@@ -4025,6 +4025,7 @@ public ProEval() {
 		"SIGNATURE",
 		"STOPAFTER",
 		"Assign_dynamic_new",
+		"FOREIGNKEYHIDDEN",
 		"Last_Token_Number"
 	};
 	

@@ -47,12 +47,10 @@ public class TestNewSyntax extends TestCase {
 		Collection files = FileUtils.listFiles(directory, extensions, true);
 		for (Iterator it = files.iterator(); it.hasNext();) {
 			File file = (File) it.next();
+			System.out.println("Parse: " + file.getAbsolutePath());
 			ParseUnit pu = new ParseUnit(file);
 			pu.treeParser(new JPTreeParser());
 			pu.treeParser01();
-//			TreeParser03 tp3 = new TreeParser03();
-//			tp3.setSupport(new TP03Support());
-//			pu.treeParser(tp3);
 		}
 	}
 
