@@ -4,7 +4,7 @@ JPTreeParser.g - Primary tree parser.
 
 Joanju Proparse Syntax Tree Structure Specification
 
-Copyright (c) 2001-2011 Joanju Software.
+Copyright (c) 2001-2015 Joanju Software.
 All rights reserved. This program and the accompanying materials 
 are made available under the terms of the Eclipse Public License v1.0
 which accompanies this distribution, and is available at
@@ -1958,7 +1958,9 @@ function_param_arg
 	:	TABLE (FOR)? RECORD_NAME (APPEND)? (BIND)?
 	|	TABLEHANDLE (FOR)? ID (APPEND)? (BIND)?
 	|	(DATASET|DATASETHANDLE) (FOR)? ID (APPEND)? (BIND)?
-	|	(ID AS)? datatype (extentphrase)?
+	|	(ID AS)=> ID AS datatype (extentphrase)?
+	|	(ID LIKE)=> ID #(LIKE field (VALIDATE)?) (extentphrase)?
+	|	datatype (extentphrase)?
 	;
 
 getstate
@@ -2419,6 +2421,7 @@ recordphrase
 			|	NOWAIT
 			|	NOPREFETCH
 			|	NOERROR_KW
+			|	TABLESCAN
 			)*
 		)
 	;

@@ -402,6 +402,7 @@ public class NodeTypes implements ProParserTokenTypes, TokenTypesI, Xferable {
 		add(BLANK, 5, "blank", TI.KEYWORD | TI.RESERVED);
 		add(BLOB, 4, "blob", TI.KEYWORD);
 		add(BLOCK_LABEL, 0, "", TI.NO_FLAGS);
+		add(BLOCKLEVEL, 11, "block-level", TI.KEYWORD);
 		add(BOTH, 4, "both", TI.KEYWORD);
 		add(BOTTOM, 6, "bottom", TI.KEYWORD);
 		add(BOX, 3, "box", TI.KEYWORD | TI.MAY_BE_REGULAR_FUNC);
@@ -744,6 +745,7 @@ public class NodeTypes implements ProParserTokenTypes, TokenTypesI, Xferable {
 		add(GETCGILIST, 12, "get-cgi-list", TI.KEYWORD);
 		add(GETCGILONGVALUE, 18, "get-cgi-long-value", TI.KEYWORD);
 		add(GETCGIVALUE, 13, "get-cgi-value", TI.KEYWORD);
+		add(GETCLASS, 9, "get-class", TI.KEYWORD | TI.MAY_BE_REGULAR_FUNC);
 		add(GETCODEPAGES, 12, "get-codepages", TI.KEYWORD | TI.RESERVED | TI.MAY_BE_NO_ARG_FUNC | TI.MAY_BE_REGULAR_FUNC);
 		add(GETCOLLATIONS, 8, "get-collations", TI.KEYWORD | TI.RESERVED | TI.MAY_BE_REGULAR_FUNC);
 		add(GETCONFIGVALUE, 16, "get-config-value", TI.KEYWORD);
@@ -1376,6 +1378,7 @@ public class NodeTypes implements ProParserTokenTypes, TokenTypesI, Xferable {
 		add(TABLE, 5, "table", TI.KEYWORD | TI.RESERVED);
 		add(TABLEHANDLE, 12, "table-handle", TI.KEYWORD | TI.RESERVED);
 		add(TABLENUMBER, 12, "table-number", TI.KEYWORD | TI.RESERVED);
+		add(TABLESCAN, 10, "table-scan", TI.KEYWORD);
 		add(TARGET, 6, "target", TI.KEYWORD);
 		add(TARGETPROCEDURE, 16, "target-procedure", TI.KEYWORD | TI.SYSHDL);
 		add(TEMPTABLE, 10, "temp-table", TI.KEYWORD);
@@ -1519,11 +1522,6 @@ public class NodeTypes implements ProParserTokenTypes, TokenTypesI, Xferable {
 		add(YESNO, 6, "yes-no", TI.KEYWORD);
 		add(YESNOCANCEL, 13, "yes-no-cancel", TI.KEYWORD);
 		add(YOF, 4, "y-of", TI.KEYWORD);
-		
-// added by Mike Fechner / Consultingwerk Ltd.
-		add(BLOCKLEVEL, 11, "block-level", TI.KEYWORD);
-		add(GETCLASS, 9, "get-class", TI.KEYWORD | TI.MAY_BE_REGULAR_FUNC);
-		
 	}
 
 

@@ -16,7 +16,7 @@ do we not want to try to figure out (from lexical) if it's an attribute
 or method, but we want to make sure that either field or METHOD will
 work in a particular spot, that METHOD is tried for first.
 
-Copyright (C) 2001-2011 Joanju Software (www.joanju.com). All rights reserved.
+Copyright (C) 2001-2015 Joanju Software (www.joanju.com). All rights reserved.
 This file is made available under the terms of the Eclipse Public License v1.0.
 */
 
@@ -2771,6 +2771,10 @@ function_param
 			)
 			(extentphrase)?
 			{support.defVar(#n.getText());}
+		|	{LA(2)==LIKE}?
+			n2:identifier like_field
+			(extentphrase)?
+			{support.defVar(#n2.getText());}
 		|	{LA(2)!=NAMEDOT}? TABLE (FOR)? record (APPEND)? (BIND)?
 		|	{LA(2)!=NAMEDOT}? TABLEHANDLE (FOR)? hn:identifier (APPEND)? (BIND)?
 			{support.defVar(#hn.getText());}
@@ -3470,6 +3474,7 @@ record_opt
 	|	NOWAIT
 	|	NOPREFETCH
 	|	NOERROR_KW
+	|	TABLESCAN
 	;
 
 releasestatement
@@ -4141,7 +4146,7 @@ STATIC | THROW | TOPNAVQUERY | UNBOX
 // 10.2B
 ABSTRACT | DELEGATE | DYNAMICNEW | EVENT | FOREIGNKEYHIDDEN | SERIALIZEHIDDEN | SERIALIZENAME | SIGNATURE | STOPAFTER |
 // 11+
-SERIALIZABLE | GETCLASS
+GETCLASS | SERIALIZABLE | TABLESCAN
 	;
 
 

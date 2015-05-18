@@ -8,7 +8,7 @@ name resolution, scoping, etc.
 To find actions taken within this grammar, search for "action.",
 which is the tree parser action object.
 
-Copyright (C) 2001-2011 Joanju Software (www.joanju.com)
+Copyright (C) 2001-2015 Joanju Software (www.joanju.com)
 All rights reserved. This program and the accompanying materials 
 are made available under the terms of the Eclipse Public License v1.0
 which accompanies this distribution, and is available at
@@ -1320,15 +1320,18 @@ function_param_arg
 		{	action.addToSymbolScope(action.defineVariable(#dsh, #dsh, HANDLE));
 			action.paramSymbol(#dsh);
 		}
-	|	(	
-			// ID AS is optional - you are allowed to list just the datatype.
-			id:ID as:AS
-			{	action.addToSymbolScope(action.defineVariable(#id, #id));
-				action.defAs(#as);
-				action.paramSymbol(#id);
-			}
-		)?
-		{if (#id==null) action.paramNoName(_t);}
+	|	(ID AS)=> id1:ID as:AS datatype (extentphrase)?
+		{	action.addToSymbolScope(action.defineVariable(#id1, #id1));
+			action.defAs(#as);
+			action.paramSymbol(#id1);
+		}
+	|	(ID LIKE)=> id3:ID #(li:LIKE fld[CQ.SYMBOL] (VALIDATE)?) (extentphrase)?
+		{	push(action.defineVariable(#id3, #id3));
+			action.paramSymbol(#id3);
+			action.defLike(#li);
+			action.addToSymbolScope(pop());
+		}
+	|	{action.paramNoName(_t);} // unnamed function arg - just the datatype
 		(CLASS TYPE_NAME | datatype_var) (extentphrase_def_symbol)?
 	;
 
@@ -1526,6 +1529,7 @@ recordphrase
 		|	NOWAIT
 		|	NOPREFETCH
 		|	NOERROR_KW
+		|	TABLESCAN
 		)*
 	;
 

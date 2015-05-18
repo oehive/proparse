@@ -891,6 +891,7 @@ public class TokenTypes implements JPTreeParserTokenTypes, TokenTypesI {
 		allTokens[TABLE].keywordText = "TABLE";
 		allTokens[TABLEHANDLE].keywordText = "TABLE-HANDLE";
 		allTokens[TABLENUMBER].keywordText = "TABLE-NUMBER";
+		allTokens[TABLESCAN].keywordText = "TABLE-SCAN";
 		allTokens[TARGET].keywordText = "TARGET";
 		allTokens[TARGETPROCEDURE].keywordText = "TARGET-PROCEDURE";
 		allTokens[TEMPTABLE].keywordText = "TEMP-TABLE";

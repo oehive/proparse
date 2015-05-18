@@ -1204,5 +1204,6 @@ public interface JPTreeParserTokenTypes {
 	int BLOCKLEVEL = 1201;
 	int SERIALIZABLE = 1202;
 	int GETCLASS = 1203;
-	int Last_Token_Number = 1204;
+	int TABLESCAN = 1204;
+	int Last_Token_Number = 1205;
 }
