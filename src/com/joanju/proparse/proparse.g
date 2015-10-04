@@ -3735,6 +3735,7 @@ systemdialoggetdir_opt
 	:	INITIALDIR^ expression
 	|	RETURNTOSTARTDIR
 	|	TITLE^ expression
+	|	UPDATE^ field
 	;
 
 systemdialoggetfilestate

@@ -2628,6 +2628,7 @@ systemdialoggetdirstate
 			(	#(INITIALDIR expression)
 			|	RETURNTOSTARTDIR
 			|	#(TITLE expression)
+			|	#(UPDATE field)
 			)*
 			state_end
 		)

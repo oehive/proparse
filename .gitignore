@@ -12,3 +12,5 @@ src/org/prorefactor/treeparser01/expandedtreeparser01.g
 data/tempsnippet.p
 data/tp01tests/frames.out.txt
 data/tp01tests/test01.out.p
+ikvmbin/
+.settings/

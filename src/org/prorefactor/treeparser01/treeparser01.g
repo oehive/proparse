@@ -1618,6 +1618,7 @@ systemdialoggetdirstate
 			(	#(INITIALDIR expression)
 			|	RETURNTOSTARTDIR
 			|	#(TITLE expression)
+			|	#(UPDATE fld[CQ.REFUP])
 			)*
 			state_end
 		)
