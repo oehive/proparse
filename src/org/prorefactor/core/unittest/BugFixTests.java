@@ -45,6 +45,7 @@ public class BugFixTests extends TestCase {
 		Collection files = FileUtils.listFiles(directory, extensions, true);
 		for (Iterator it = files.iterator(); it.hasNext();) {
 			File file = (File) it.next();
+			System.out.println("Parse: " + file.getAbsolutePath());
 			ParseUnit pu = new ParseUnit(file);
 			pu.parse();
 			pu.treeParser(new JPTreeParser());
@@ -53,16 +54,3 @@ public class BugFixTests extends TestCase {
 	}
 
 }
-
-
-/*
-import org.prorefactor.core.JPNodeLister;
-import org.prorefactor.core.TokenTypes;
-
-			boolean debug = true;
-			if (debug && file.getName().equals("bug06.p")) {
-				JPNodeLister lister = new JPNodeLister(pu.getTopNode(), "C:\\temp\\nodelister.txt", new TokenTypes());
-				lister.print();
-			}
-
-*/

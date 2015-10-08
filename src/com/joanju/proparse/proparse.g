@@ -797,7 +797,7 @@ exprt
 		// Also has to be checked before systemhandlename, because you want to pick up all
 		// of FILE-INFO:FILE-TYPE rather than just FILE-INFO, for example.
 		(widname (OBJCOLON|DOUBLECOLON))=> widname attr_colon {##=#([Widget_ref],##);}
-	|	(exprt2)=> exprt2 (options{greedy=true;}:  attr_colon {##=#([Widget_ref],##);} )?
+	| exprt2 (options{greedy=true;}:  attr_colon {##=#([Widget_ref],##);} )?
 	;
 
 exprt2
