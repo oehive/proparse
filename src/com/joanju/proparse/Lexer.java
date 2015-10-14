@@ -91,6 +91,7 @@ public class Lexer implements ProParserTokenTypes {
 			currText.setCharAt(0, (char)currInt);
 			
 			if (gettingAmpIfDefArg) {
+				getChar();
 				gettingAmpIfDefArg = false;
 				return ampIfDefArg();
 			}

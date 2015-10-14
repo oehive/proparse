@@ -19,7 +19,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 
-public class AllPRCoreTests {
+public class AllTests {
 
 
 	public static Test suite() {
@@ -39,4 +39,4 @@ public class AllPRCoreTests {
 		return suite;
 	}
 
-} // class AllTests
+}
