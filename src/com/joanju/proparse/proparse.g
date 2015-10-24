@@ -2403,8 +2403,10 @@ dostate
 
 downstate
 	:	DOWN^
+		// The STREAM phrase may come before or after the expression, ex: DOWN 1 STREAM  MyStream.
 		(options{greedy=true;}: stream_name_or_handle)?
 		(options{greedy=true;}: expression)?
+		(options{greedy=true;}: stream_name_or_handle)?
 		(framephrase)? state_end
 		{sthd(##,0);}
 	;
