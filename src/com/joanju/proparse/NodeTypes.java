@@ -944,6 +944,7 @@ public class NodeTypes implements ProParserTokenTypes, TokenTypesI, Xferable {
 		add(MENUITEM, 9, "menu-item", TI.KEYWORD);
 		add(MERGEBYFIELD, 14, "merge-by-field", TI.KEYWORD);
 		add(MESSAGE, 7, "message", TI.KEYWORD | TI.RESERVED);
+		add(MESSAGEDIGEST, 14, "message-digest", TI.KEYWORD);
 		add(MESSAGELINE, 12, "message-line", TI.KEYWORD);
 		add(MESSAGELINES, 13, "message-lines", TI.KEYWORD | TI.RESERVED | TI.MAY_BE_NO_ARG_FUNC);
 		add(METHOD, 6, "method", TI.KEYWORD);

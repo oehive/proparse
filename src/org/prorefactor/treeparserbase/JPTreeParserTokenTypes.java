@@ -1205,5 +1205,6 @@ public interface JPTreeParserTokenTypes {
 	int SERIALIZABLE = 1202;
 	int GETCLASS = 1203;
 	int TABLESCAN = 1204;
-	int Last_Token_Number = 1205;
+	int MESSAGEDIGEST = 1205;
+	int Last_Token_Number = 1206;
 }

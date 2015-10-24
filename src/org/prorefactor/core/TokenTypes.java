@@ -578,6 +578,7 @@ public class TokenTypes implements JPTreeParserTokenTypes, TokenTypesI {
 		allTokens[MENUITEM].keywordText = "MENU-ITEM";
 		allTokens[MENUBAR].keywordText = "MENU-BAR";
 		allTokens[MESSAGE].keywordText = "MESSAGE";
+		allTokens[MESSAGEDIGEST].keywordText = "MESSAGE-DIGEST";
 		allTokens[MESSAGELINE].keywordText = "MESSAGE-LINE";
 		allTokens[MESSAGELINES].keywordText = "MESSAGE-LINES";
 		allTokens[MINSIZE].keywordText = "MIN-SIZE";

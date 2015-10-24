@@ -519,6 +519,7 @@ argfunc
 	|	#(MAXIMUM funargs )
 	|	#(MD5DIGEST funargs )
 	|	#(MEMBER funargs )
+	|	#(MESSAGEDIGEST funargs )
 	|	#(MINIMUM funargs )
 	|	#(MONTH funargs )
 	|	#(NORMALIZE funargs )
@@ -2628,6 +2629,7 @@ systemdialoggetdirstate
 			(	#(INITIALDIR expression)
 			|	RETURNTOSTARTDIR
 			|	#(TITLE expression)
+			|	#(UPDATE field)
 			)*
 			state_end
 		)
