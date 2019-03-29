@@ -7,3 +7,6 @@ and I didn't migrate this work to github until others had already taken the lead
 So, you can find some indirect forks of Proparse on github:
   * https://github.com/consultingwerk/proparse
   * https://github.com/totvs/oe-proparse
+
+
+\- John Green [(joagr)](https://github.com/orgs/oehive/people/joagr)
